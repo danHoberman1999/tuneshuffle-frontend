@@ -1,0 +1,24 @@
+const CLIENT_ID: string = String(process.env.REACT_APP_CLIENT_ID)
+const SPOTIFY_AUTHORIZE_ENDPOINT: string =
+  'https://accounts.spotify.com/authorize'
+const REDIRECT_URL_AFTER_LOGIN: string = 'https://www.tuneshuffle.com/shuffle'
+const SPACE_DELIMITER: string = '%20'
+const SCOPES: string[] = [
+  'user-read-playback-state',
+  'streaming',
+  'user-read-email',
+  'user-read-private',
+  'user-modify-playback-state',
+  'playlist-modify-public',
+  'playlist-modify-private',
+]
+const SCOPES_URL_PARAM: string = SCOPES.join(SPACE_DELIMITER)
+
+export const LOGIN_DATA = {
+  CLIENT_ID,
+  SPOTIFY_AUTHORIZE_ENDPOINT,
+  REDIRECT_URL_AFTER_LOGIN,
+  SPACE_DELIMITER,
+  SCOPES,
+  SCOPES_URL_PARAM,
+}

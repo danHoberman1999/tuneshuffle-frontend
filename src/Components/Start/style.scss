@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Montserrat:ital,wght@1,900&display=swap');
+
+:root {
+  background: url('../../Assets/background_pink_bubbles.jpg') no-repeat center
+    center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.infoContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  top: 40%;
+  -webkit-transform: translateY(-40%);
+  -ms-transform: translateY(-40%);
+  transform: translateY(-40%);
+  .main-text {
+    margin: auto;
+    color: #ffffff;
+    font-size: 430%;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .sub-text {
+    color: #fdf6f4;
+    font-size: 130%;
+    font-family: 'Inter', sans-serif;
+  }
+  .login-button {
+    margin: 1rem;
+    background: #6c63ff;
+    border-radius: 60px;
+    padding: 1em 2.5em;
+    font-size: 1.5em;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    animation: fadein 1s;
+    animation-delay: 1.4s;
+    animation-fill-mode: forwards;
+    border: none;
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3),
+        0 6px 20px 0 rgba(0, 0, 0, 0.4);
+    }
+  }
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Tuneshuffle is a new way to find music. Its advanced randomizer
+      takes you to songs that you never knew existed!"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <script
+      src="https://kit.fontawesome.com/4c5ff958f3.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      var host = 'www.tuneshuffle.com' || 'tuneshuffle.com'
+      if (
+        host == window.location.host &&
+        window.location.protocol != 'https:'
+      ) {
+        window.location.protocol = 'https'
+      }
+    </script>
+    <title>Tuneshuffle</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="/src/index.jsx" async type="module"></script>
+  </body>
+</html>
