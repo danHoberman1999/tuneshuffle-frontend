@@ -4,7 +4,7 @@ import MusicPlayer from './SubComponents/MusicPlayer'
 import Playlist from './SubComponents/Playlist'
 
 const Shuffle = () => {
-  const [randomData, setRandomData] = useState(null)
+  const [randomData, setRandomData] = useState({})
   const [loading, setLoading] = useState(true)
   const [playlist, setPlaylist] = useState([])
   const [trackPlayStorage, setTrackPlayStorage] = useState('')
