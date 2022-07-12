@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import Header from './Header/Header'
 import './style.scss'
-import axios from 'axios'
 import { LOGIN_DATA } from '../../Lib/Login/Data'
+import { GLOBAL_ACTIONS } from '../../Lib/Actions'
 
 const Start = () => {
   const handleLogin = () => {
@@ -10,21 +10,7 @@ const Start = () => {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          'https://randify-info.herokuapp.com/expired?auth=' +
-            localStorage.accessToken
-        )
-        if (response.data['expired info'].expired === false) {
-          window.location.href = 'https://www.tuneshuffle.com/shuffle'
-        }
-      } catch (err) {
-        console.log(err)
-      }
-    }
-
-    fetchData()
+    GLOBAL_ACTIONS.isSessionExpired()
   })
 
   return (
