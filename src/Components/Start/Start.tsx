@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Header from './Header/Header'
 import './style.scss'
 import { LOGIN_DATA } from '../../Lib/Login/Data'
-import { GLOBAL_ACTIONS } from '../../Lib/Actions'
+import { GLOBAL_METHODS } from '../../Lib/Methods'
 
 const Start = () => {
   const handleLogin = () => {
@@ -10,7 +10,7 @@ const Start = () => {
   }
 
   useEffect(() => {
-    GLOBAL_ACTIONS.isSessionExpired()
+    GLOBAL_METHODS.isSessionExpired()
   })
 
   return (

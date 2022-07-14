@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import { confirmAlert } from 'react-confirm-alert'
+import { CONSTANTS } from './Constants'
 
 interface randomProps {
   setLoading: React.Dispatch<React.SetStateAction<any>>
@@ -9,7 +10,7 @@ interface randomProps {
 }
 
 interface similarProps extends randomProps {
-  randomData: null
+  randomData: { name?: string; image?: any; artists?: string; id?: string }
 }
 
 interface playlistProps {
@@ -36,11 +37,10 @@ const getReturnedParamsFromSpotifyAuth = (hash: any) => {
 const isSessionExpired = async () => {
   try {
     const response = await axios.get(
-      'https://randify-info.herokuapp.com/expired?auth=' +
-        localStorage.accessToken
+      CONSTANTS.IS_EXPIRED_API_URL + 'auth=' + localStorage.accessToken
     )
     if (response.data['expired info'].expired === false) {
-      window.location.href = 'https://www.tuneshuffle.com/shuffle'
+      window.location.href = CONSTANTS.TUNESHUFFLE_URL + 'shuffle'
     }
   } catch (err) {
     console.log(err)
@@ -54,9 +54,7 @@ const getRandomSong = async ({
 }: randomProps) => {
   setLoading(false)
   try {
-    const response = await axios.get(
-      'https://randify-info.herokuapp.com/random?'
-    )
+    const response = await axios.get(CONSTANTS.FETCH_RANDOM_API_URL)
     setRandomData(response.data['random info'])
     setTrackPlayStorage('spotify:track:' + response.data['random info'].id)
   } catch (e) {
@@ -73,7 +71,7 @@ const getSimilarSong = async ({
   setLoading(false)
   try {
     const response = await axios.get(
-      'https://randify-info.herokuapp.com/recommendation?id=' + randomData.id
+      CONSTANTS.FETCH_RECOMMENDATION_API_URL + 'id=' + randomData.id
     )
     setRandomData(response.data['recommendation info'])
     setTrackPlayStorage(
@@ -92,12 +90,12 @@ const createNewPlaylist = async ({
 }: playlistProps) => {
   try {
     const response = await axios.get(
-      'https://randify-info.herokuapp.com/playlist?auth=' +
+      CONSTANTS.CREATE_PLAYLIST_URL +
+        'auth=' +
         localStorage.accessToken +
         '&id=' +
         likedSongs
     )
-    console.log('Songs added to new spotify playlist')
     setPlaylist([])
     setLikedSongs('')
   } catch (e) {
@@ -117,7 +115,7 @@ const alertExpiring = () => {
   })
 }
 
-export const GLOBAL_ACTIONS = {
+export const GLOBAL_METHODS = {
   getReturnedParamsFromSpotifyAuth,
   getRandomSong,
   getSimilarSong,

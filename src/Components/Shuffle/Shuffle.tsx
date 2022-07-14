@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { GLOBAL_ACTIONS } from '../../Lib/Actions'
+import { GLOBAL_METHODS } from '../../Lib/Methods'
 import MusicPlayer from './SubComponents/MusicPlayer'
 import Playlist from './SubComponents/Playlist'
+import { CONSTANTS } from '../../Lib/Constants'
+
+interface RandomDataProps {
+  name?: string
+  image?: any
+  artists?: string
+  id?: string
+}
 
 const Shuffle = () => {
-  const [randomData, setRandomData] = useState({})
+  const [randomData, setRandomData] = useState<RandomDataProps>({})
   const [loading, setLoading] = useState(true)
   const [playlist, setPlaylist] = useState([])
   const [trackPlayStorage, setTrackPlayStorage] = useState('')
@@ -13,30 +21,30 @@ const Shuffle = () => {
   useEffect(() => {
     if (window.location.hash) {
       const { access_token, expires_in, token_type } =
-        GLOBAL_ACTIONS.getReturnedParamsFromSpotifyAuth(window.location.hash)
+        GLOBAL_METHODS.getReturnedParamsFromSpotifyAuth(window.location.hash)
 
       localStorage.setItem('accessToken', access_token)
       localStorage.setItem('tokenType', token_type)
       localStorage.setItem('expiresIn', expires_in)
 
       const alertTimer = setTimeout(() => {
-        GLOBAL_ACTIONS.alertExpiring()
-      }, 3400000)
+        GLOBAL_METHODS.alertExpiring()
+      }, CONSTANTS.WINDOW_ALLOCATED_TIME)
 
       const windowTimer = setTimeout(() => {
         localStorage.clear()
-        window.location.href = 'https://www.tuneshuffle.com/'
-      }, 3600000)
+        window.location.href = CONSTANTS.TUNESHUFFLE_URL
+      }, CONSTANTS.WINDOW_ALLOCATED_TIME)
 
       clearTimeout(alertTimer)
       clearTimeout(windowTimer)
       return
     }
-    GLOBAL_ACTIONS.isSessionExpired()
+    GLOBAL_METHODS.isSessionExpired()
   })
 
   useEffect(() => {
-    GLOBAL_ACTIONS.getRandomSong({
+    GLOBAL_METHODS.getRandomSong({
       setLoading,
       setRandomData,
       setTrackPlayStorage,
@@ -46,7 +54,11 @@ const Shuffle = () => {
   return (
     <div className='shuffleContainer'>
       <div className='albumContainer'>
-        <img className='albumImage' src={randomData.image} />
+        <img
+          className='albumImage'
+          src={randomData.image}
+          alt='random album from spotify'
+        />
       </div>
       <div className='music-info-container'>
         <h1 className='songName'>{randomData.name}</h1>
@@ -55,16 +67,14 @@ const Shuffle = () => {
         <div className='buttonContainer'>
           <button
             onClick={() =>
-              GLOBAL_ACTIONS.getRandomSong({
+              GLOBAL_METHODS.getRandomSong({
                 setLoading,
                 setRandomData,
                 setTrackPlayStorage,
               })
             }
-            className='diceButton'
-          >
-            <img className='diceButtonImg' src={Img4} alt='Smashicons' />
-          </button>
+            className='shuffleButton'
+          ></button>
         </div>
       </div>
       <Playlist />
