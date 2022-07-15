@@ -1,3 +1,5 @@
+import { GLOBAL_METHODS } from '../../../Lib/Methods'
+
 const Playlist = () => {
   return (
     <div
@@ -13,12 +15,8 @@ const Playlist = () => {
                 <th>Artists:</th>
               </tr>
             </thead>
-            <tbody>{playlistTracker.map(createPlaylist)}</tbody>
           </table>
         </form>
-        <button className='addSpotify' onClick={addSpotify}>
-          Add to Spotify
-        </button>
       </div>
     </div>
   )

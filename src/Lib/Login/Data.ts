@@ -1,7 +1,9 @@
-const CLIENT_ID: string = String(process.env.REACT_APP_CLIENT_ID)
+import { CONSTANTS } from '../Constants'
+
+const CLIENT_ID: string = '96094bf1e5d945aaaebfc3df6f01d97c' // need to take out and put back as .env
 const SPOTIFY_AUTHORIZE_ENDPOINT: string =
-  'https://accounts.spotify.com/authorize'
-const REDIRECT_URL_AFTER_LOGIN: string = 'https://www.tuneshuffle.com/shuffle'
+  CONSTANTS.SPOTIFY_CONNECTION + 'authorize'
+const REDIRECT_URL_AFTER_LOGIN: string = CONSTANTS.TUNESHUFFLE_URL + 'shuffle'
 const SPACE_DELIMITER: string = '%20'
 const SCOPES: string[] = [
   'user-read-playback-state',

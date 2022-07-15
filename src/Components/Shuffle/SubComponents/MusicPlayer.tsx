@@ -1,11 +1,11 @@
 import SpotifyPlayer from 'react-spotify-web-playback'
 
-const MusicPlayer = () => {
+const MusicPlayer = (trackPlay: any) => {
   return (
     <div className='sdkContainer'>
       <SpotifyPlayer
         token={localStorage.accessToken}
-        uris={[trackPlayStorage]}
+        uris={[trackPlay]}
         styles={{
           activeColor: 'rgba(255, 0, 0, 0)',
           bgColor: 'rgba(255, 0, 0, 0)',

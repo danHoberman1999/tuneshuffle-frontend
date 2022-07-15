@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Montserrat:ital,wght@1,900&display=swap');
+
+.container {
+  background-color: red;
+  .shuffleContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    top: 100%;
+    -webkit-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
+    transform: translateY(-100%);
+    .albumContainer {
+      .albumImage {
+        border-radius: 8%;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+          rgba(0, 0, 0, 0.23) 0px 3px 6px;
+      }
+    }
+    .music-info-container {
+      opacity: 0.8;
+      background: #1c1c1e;
+      width: 600px;
+      margin: 50px 150px;
+      border-radius: 30px;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+        rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+      .songName {
+        color: #fff;
+        font-size: 80%;
+        font-family: 'Inter', sans-serif;
+        text-align: center;
+        padding: 0;
+        margin-top: 1rem;
+      }
+      .artistName {
+        color: #c7c7cc;
+        font-size: 80%;
+        font-family: 'Inter', sans-serif;
+        text-align: center;
+        padding: 0;
+        margin-top: 0.2rem;
+      }
+
+      .sdkContainer {
+        width: 80%;
+        padding: 0;
+        margin: auto;
+        overflow: hidden;
+        .PlayerRSWP {
+          ._SliderRSWP > div {
+            color: red;
+          }
+        }
+        ._VolumeRSWP,
+        ._DevicesRSWP,
+        .__mvqn38 {
+          visibility: hidden !important;
+        }
+      }
+      .buttonContainer {
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        position: relative;
+        top: 70%;
+        -webkit-transform: translateY(-70%);
+        -ms-transform: translateY(-70%);
+        transform: translateY(-70%);
+        .shuffleButton {
+          border-radius: 8px;
+          background: #1c1c1e;
+          opacity: 0.8;
+          font-size: 1.5em;
+          font-family: 'Montserrat', sans-serif;
+          color: #6c63ff;
+          text-decoration: none;
+          text-transform: uppercase;
+          font-weight: bold;
+          box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          animation: fadein 1s;
+          animation-delay: 1.4s;
+          animation-fill-mode: forwards;
+          border: none;
+          &:hover {
+            cursor: pointer;
+            text-shadow: 0.01em 0 #6c63ff, 0 0.01em #6c63ff, -0.01em 0 #6c63ff,
+              0 -0.01em #6c63ff;
+          }
+        }
+      }
+    }
+  }
+}
