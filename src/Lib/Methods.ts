@@ -23,7 +23,13 @@ const isSessionExpired = async () => {
       CONSTANTS.IS_EXPIRED_API_URL + 'auth=' + localStorage.accessToken
     )
     if (response.data['expired info'].expired === false) {
-      window.location.href = CONSTANTS.TUNESHUFFLE_URL + 'shuffle'
+      if (window.location.href !== CONSTANTS.TUNESHUFFLE_URL + 'shuffle') {
+        window.location.href = CONSTANTS.TUNESHUFFLE_URL + 'shuffle'
+      }
+    } else {
+      if (window.location.href !== CONSTANTS.TUNESHUFFLE_URL) {
+        window.location.href = CONSTANTS.TUNESHUFFLE_URL
+      }
     }
   } catch (err) {
     console.log(err)
@@ -42,8 +48,24 @@ const alertExpiring = () => {
   })
 }
 
+const playlistCreated = () => {
+  confirmAlert({
+    title: 'Playlist Created',
+    message: 'Make playlist has been successfully added to spotify',
+  })
+}
+
+const playlistCreationFailed = () => {
+  confirmAlert({
+    title: 'Playlist failed to create',
+    message: 'playlist was not added to spotify',
+  })
+}
+
 export const GLOBAL_METHODS = {
   getReturnedParamsFromSpotifyAuth,
   alertExpiring,
   isSessionExpired,
+  playlistCreated,
+  playlistCreationFailed,
 }

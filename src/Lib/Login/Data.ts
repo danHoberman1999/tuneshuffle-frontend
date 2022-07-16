@@ -1,6 +1,6 @@
 import { CONSTANTS } from '../Constants'
 
-const CLIENT_ID: string = '96094bf1e5d945aaaebfc3df6f01d97c' // need to take out and put back as .env
+const CLIENT_ID: string = String(process.env.REACT_APP_CLIENT_ID)
 const SPOTIFY_AUTHORIZE_ENDPOINT: string =
   CONSTANTS.SPOTIFY_CONNECTION + 'authorize'
 const REDIRECT_URL_AFTER_LOGIN: string = CONSTANTS.TUNESHUFFLE_URL + 'shuffle'

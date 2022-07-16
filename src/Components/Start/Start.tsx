@@ -11,7 +11,7 @@ const Start = () => {
 
   useEffect(() => {
     GLOBAL_METHODS.isSessionExpired()
-  })
+  }, [])
 
   return (
     <div className='startContainer'>

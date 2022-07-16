@@ -1,6 +1,5 @@
 import React, { useState, useEffect, CSSProperties } from 'react'
 import { GLOBAL_METHODS } from '../../Lib/Methods'
-import Playlist from './SubComponents/Playlist'
 import { CONSTANTS } from '../../Lib/Constants'
 import axios from 'axios'
 import ScaleLoader from 'react-spinners/ScaleLoader'
@@ -19,9 +18,9 @@ const Shuffle = () => {
   const [imageScanLoading, setImageScanLoading] = useState(true)
   const [imageAPILoading, setImageAPILoading] = useState(true)
   let [loaderColor, setLoaderColor] = useState('#ffffff')
-  const [playlist, setPlaylist] = useState([])
+  const [playlist, setPlaylist] = useState<Array<string>>([])
+  const [playlistCount, setPlaylistCount] = useState(0)
   const [trackPlayStorage, setTrackPlayStorage] = useState('')
-  const [likedSongs, setLikedSongs] = useState('')
   const [imageGradient, setImageGradient] = useState([])
 
   const getRandomSong = async () => {
@@ -38,18 +37,31 @@ const Shuffle = () => {
     }
   }
 
+  const addPlaylist = () => {
+    let apiString = randomData.id + '!'
+    setPlaylist((playlist) => [...playlist, apiString])
+  }
+
   const createNewPlaylist = async () => {
+    let playlistString = ''
+    function parsePlaylist(item: string) {
+      playlistString += item
+    }
+    playlist.forEach(parsePlaylist)
+    console.log(playlistString)
     try {
       const response = await axios.get(
         CONSTANTS.CREATE_PLAYLIST_URL +
           'auth=' +
           localStorage.accessToken +
           '&id=' +
-          likedSongs
+          playlistString
       )
+      GLOBAL_METHODS.playlistCreated()
+      setPlaylistCount(0)
       setPlaylist([])
-      setLikedSongs('')
     } catch (e) {
+      GLOBAL_METHODS.playlistCreationFailed()
       console.log(e)
     }
   }
@@ -67,6 +79,7 @@ const Shuffle = () => {
       setImageGradient(response['data']['colors']['other'])
       setImageScanLoading(false)
     } catch (e) {
+      setImageScanLoading(true)
       console.log(e)
     }
   }
@@ -87,21 +100,21 @@ const Shuffle = () => {
 
       const alertTimer = setTimeout(() => {
         GLOBAL_METHODS.alertExpiring()
-      }, CONSTANTS.WINDOW_ALLOCATED_TIME)
+      }, (localStorage.expires_in - 200) * 1000)
 
       const windowTimer = setTimeout(() => {
         localStorage.clear()
         window.location.href = CONSTANTS.TUNESHUFFLE_URL
-      }, CONSTANTS.WINDOW_ALLOCATED_TIME)
+      }, localStorage.expires_in * 1000)
 
       clearTimeout(alertTimer)
       clearTimeout(windowTimer)
       return
     }
-    GLOBAL_METHODS.isSessionExpired()
   })
 
   useEffect(() => {
+    GLOBAL_METHODS.isSessionExpired()
     getRandomSong()
   }, [])
 
@@ -116,6 +129,8 @@ const Shuffle = () => {
             ',' +
             `${imageGradient[2]['hex']}` +
             ')',
+        animation: 'fadein 1s',
+        animationDelay: '2.5s',
       }}
     >
       <div className='shuffleContainer'>
@@ -165,10 +180,23 @@ const Shuffle = () => {
               Shuffle
             </button>
             <button
-              onClick={() => createNewPlaylist()}
+              onClick={() => {
+                addPlaylist()
+                setPlaylistCount(playlistCount + 1)
+              }}
               className='shuffleButton'
             >
-              + Playlist
+              +Playlist: <span className='playlistCount'>{playlistCount}</span>
+            </button>
+          </div>
+          <div className='playlistContainer'>
+            <button
+              onClick={() => {
+                createNewPlaylist()
+              }}
+              className='submitPlaylistButton'
+            >
+              Create
             </button>
           </div>
         </div>
