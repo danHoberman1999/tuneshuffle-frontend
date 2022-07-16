@@ -22,16 +22,20 @@ const Shuffle = () => {
   let [loaderColor, setLoaderColor] = useState('#ffffff')
   const [trackPlayStorage, setTrackPlayStorage] = useState('')
   const [imageGradient, setImageGradient] = useState([])
+  const [firstLoad, setFirstLoad] = useState(true)
 
   const getRandomSong = async () => {
     setImageAPILoading(true)
+
     try {
       const response = await axios.get(CONSTANTS.FETCH_RANDOM_API_URL)
       setRandomData(response.data['random info'])
       setTrackPlayStorage('spotify:track:' + response.data['random info'].id)
       const imageLoaded = setTimeout(() => {
         setImageAPILoading(false)
-      }, 1000)
+      }, 500)
+      setFirstLoad(false)
+      ImageColorDetection(randomData.image)
     } catch (e) {
       console.log(e)
     }
@@ -47,6 +51,7 @@ const Shuffle = () => {
           api_secret: CONSTANTS.SIGHT_ENGINE_SECRET,
         },
       })
+      console.log(response['data']['colors']['other'])
       setImageGradient(response['data']['colors']['other'])
       setImageScanLoading(false)
     } catch (e) {
@@ -124,10 +129,15 @@ const Shuffle = () => {
         )}
         <div className='music-info-container'>
           <h1 className='songName'>{randomData.name}</h1>
-          <h2 className='artistName'>
-            {randomData.artists} — {randomData.random_genre} (
-            {randomData.year_track})
-          </h2>
+          {firstLoad ? (
+            <h2 className='artistName'></h2>
+          ) : (
+            <h2 className='artistName'>
+              {randomData.artists} — {randomData.random_genre} (
+              {randomData.year_track})
+            </h2>
+          )}
+
           <div className='sdkContainer'>
             <SpotifyPlayer
               token={localStorage.accessToken}
@@ -147,7 +157,6 @@ const Shuffle = () => {
             <button
               onClick={() => {
                 getRandomSong()
-                ImageColorDetection(randomData.image)
               }}
               className='shuffleButton'
             >
