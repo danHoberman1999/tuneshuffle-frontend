@@ -17,8 +17,8 @@ const Start = () => {
     <div className='startContainer'>
       <Header />
       <div className='infoContainer'>
-        <h1 className='main-text'>New way to discover music</h1>
-        <p className='sub-text'>Millions of song's you never new existed</p>
+        <h1 className='main-text'>A New way to discover music</h1>
+        <p className='sub-text'>Millions of songs you never knew existed</p>
         <button onClick={handleLogin} className='login-button'>
           Try Tuneshuffle
         </button>

@@ -1,4 +1,4 @@
-const TUNESHUFFLE_URL: string = 'https://tuneshuffle.herokuapp.com/'
+const TUNESHUFFLE_URL: string = 'http://localhost:3000/'
 const BACKEND_API_URL: string = 'https://randify-info.herokuapp.com/'
 const FETCH_RANDOM_API_URL: string = BACKEND_API_URL + 'random?'
 const FETCH_RECOMMENDATION_API_URL: string = BACKEND_API_URL + 'recommendation?'

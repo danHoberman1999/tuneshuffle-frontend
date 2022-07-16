@@ -33,35 +33,35 @@
       opacity: 0.8;
       background: #1c1c1e;
       width: 600px;
+      height: 165px;
       margin: 50px 150px;
-      height: 175px;
       border-radius: 30px;
       box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
         rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
       .songName {
         color: #fff;
-        font-size: 80%;
+        font-size: 95%;
         font-family: 'Inter', sans-serif;
         text-align: center;
-        padding: 0;
+        padding: 0 10px;
         margin-top: 1rem;
-        height: 15.5px;
         text-overflow: ellipsis;
         overflow: hidden;
         display: block;
         text-overflow: ellipsis;
+        height: 18px;
       }
       .artistName {
         color: #c7c7cc;
-        font-size: 80%;
+        font-size: 95%;
         font-family: 'Inter', sans-serif;
         text-align: center;
         padding: 0;
         margin-top: 0.2rem;
-        height: 15.5px;
         overflow: hidden;
         display: block;
         text-overflow: ellipsis;
+        height: 18px;
       }
 
       .sdkContainer {
@@ -69,9 +69,18 @@
         padding: 0;
         margin: auto;
         overflow: hidden;
+        z-index: 100;
         .PlayerRSWP {
           ._ContentRSWP {
-            height: 48px;
+            height: 73px;
+          }
+          ._ControlsRSWP {
+            margin-top: 25px;
+            .rswp__toggle {
+              position: relative;
+              z-index: 500;
+              transform: scale(1.4);
+            }
           }
           ._SliderRSWP > div {
             color: red;
@@ -85,15 +94,18 @@
       }
       .buttonContainer {
         display: flex;
-        justify-content: space-around;
+        justify-content: flex-end;
         flex-direction: row;
         position: relative;
-        transform: translateY(-125%);
+        transform: translateY(-110%);
         .shuffleButton {
+          z-index: 500;
+          position: relative;
+          transform: translateX(-20%);
           border-radius: 8px;
           background: #1c1c1e;
           opacity: 0.8;
-          font-size: 1.5em;
+          font-size: 2em;
           font-family: 'Montserrat', sans-serif;
           color: #6c63ff;
           text-decoration: none;
@@ -112,34 +124,6 @@
         }
         .playlistCount {
           color: #fff;
-        }
-      }
-      .playlistContainer {
-        text-align: center;
-        position: relative;
-        transform: translateY(-60%);
-        .submitPlaylistButton {
-          margin: auto;
-          padding: 10px;
-          border-radius: 15px;
-          background: #1b1b1c;
-          opacity: 0.8;
-          font-size: 1.5em;
-          font-family: 'Montserrat', sans-serif;
-          color: #6c63ff;
-          text-decoration: none;
-          text-transform: uppercase;
-          font-weight: bold;
-          box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
-            0 6px 20px 0 rgba(0, 0, 0, 0.19);
-          animation: fadein 1s;
-          animation-delay: 1.4s;
-          animation-fill-mode: forwards;
-          border: none;
-          &:hover {
-            cursor: pointer;
-            text-shadow: 0.03em 0 #6c63ff, 0 0.03em #6c63ff;
-          }
         }
       }
     }

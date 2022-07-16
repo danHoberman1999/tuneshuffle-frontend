@@ -11,6 +11,8 @@ interface RandomDataProps {
   image?: string
   artists?: string
   id?: string
+  random_genre?: string
+  year_track?: string
 }
 
 const Shuffle = () => {
@@ -18,8 +20,6 @@ const Shuffle = () => {
   const [imageScanLoading, setImageScanLoading] = useState(true)
   const [imageAPILoading, setImageAPILoading] = useState(true)
   let [loaderColor, setLoaderColor] = useState('#ffffff')
-  const [playlist, setPlaylist] = useState<Array<string>>([])
-  const [playlistCount, setPlaylistCount] = useState(0)
   const [trackPlayStorage, setTrackPlayStorage] = useState('')
   const [imageGradient, setImageGradient] = useState([])
 
@@ -33,35 +33,6 @@ const Shuffle = () => {
         setImageAPILoading(false)
       }, 1000)
     } catch (e) {
-      console.log(e)
-    }
-  }
-
-  const addPlaylist = () => {
-    let apiString = randomData.id + '!'
-    setPlaylist((playlist) => [...playlist, apiString])
-  }
-
-  const createNewPlaylist = async () => {
-    let playlistString = ''
-    function parsePlaylist(item: string) {
-      playlistString += item
-    }
-    playlist.forEach(parsePlaylist)
-    console.log(playlistString)
-    try {
-      const response = await axios.get(
-        CONSTANTS.CREATE_PLAYLIST_URL +
-          'auth=' +
-          localStorage.accessToken +
-          '&id=' +
-          playlistString
-      )
-      GLOBAL_METHODS.playlistCreated()
-      setPlaylistCount(0)
-      setPlaylist([])
-    } catch (e) {
-      GLOBAL_METHODS.playlistCreationFailed()
       console.log(e)
     }
   }
@@ -153,7 +124,10 @@ const Shuffle = () => {
         )}
         <div className='music-info-container'>
           <h1 className='songName'>{randomData.name}</h1>
-          <h2 className='artistName'>{randomData.artists}</h2>
+          <h2 className='artistName'>
+            {randomData.artists} — {randomData.random_genre} (
+            {randomData.year_track})
+          </h2>
           <div className='sdkContainer'>
             <SpotifyPlayer
               token={localStorage.accessToken}
@@ -178,25 +152,6 @@ const Shuffle = () => {
               className='shuffleButton'
             >
               Shuffle
-            </button>
-            <button
-              onClick={() => {
-                addPlaylist()
-                setPlaylistCount(playlistCount + 1)
-              }}
-              className='shuffleButton'
-            >
-              +Playlist: <span className='playlistCount'>{playlistCount}</span>
-            </button>
-          </div>
-          <div className='playlistContainer'>
-            <button
-              onClick={() => {
-                createNewPlaylist()
-              }}
-              className='submitPlaylistButton'
-            >
-              Create
             </button>
           </div>
         </div>
