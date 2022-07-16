@@ -27,7 +27,6 @@
           rgba(0, 0, 0, 0.23) 0px 3px 6px;
       }
     }
-
     .music-info-container {
       overflow: hidden;
       opacity: 0.8;
@@ -82,9 +81,6 @@
               transform: scale(1.4);
             }
           }
-          ._SliderRSWP > div {
-            color: red;
-          }
         }
         ._VolumeRSWP,
         ._DevicesRSWP,
@@ -122,8 +118,55 @@
             text-shadow: 0.03em 0 #6c63ff, 0 0.03em #6c63ff;
           }
         }
-        .playlistCount {
-          color: #fff;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .container {
+    .shuffleContainer {
+      .loaderContainer {
+        height: 150px;
+        width: 150px;
+      }
+      .albumContainer {
+        height: 150px;
+        width: 150px;
+        .albumImage {
+          height: 150px;
+          width: 150px;
+        }
+      }
+      .music-info-container {
+        width: 350px;
+        height: 120px;
+        margin: 50px 150px;
+        border-radius: 30px;
+        .songName,
+        .artistName {
+          font-size: 75%;
+          height: 15px;
+        }
+
+        .sdkContainer {
+          .PlayerRSWP {
+            ._ContentRSWP {
+              height: 50px;
+            }
+            ._ControlsRSWP {
+              margin-top: 10px;
+              .rswp__toggle {
+                transform: scale(0.9);
+              }
+            }
+          }
+        }
+        .buttonContainer {
+          transform: translateY(-125%);
+          .shuffleButton {
+            font-size: 1.3em;
+          }
         }
       }
     }

@@ -20,6 +20,7 @@
   transform: translateY(-40%);
   .main-text {
     margin: auto;
+    text-align: center;
     color: #ffffff;
     font-size: 430%;
     font-weight: 600;
@@ -50,6 +51,21 @@
       cursor: pointer;
       box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3),
         0 6px 20px 0 rgba(0, 0, 0, 0.4);
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .infoContainer {
+    .main-text {
+      font-size: 330%;
+      font-weight: 400;
+    }
+    .sub-text {
+      font-size: 90%;
+    }
+    .login-button {
+      font-size: 1.2em;
     }
   }
 }
