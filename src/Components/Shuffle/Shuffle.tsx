@@ -12,7 +12,7 @@ interface RandomDataProps {
   artists?: string
   id?: string
   random_genre?: string
-  year_track?: string
+  year?: string
 }
 
 const Shuffle = () => {
@@ -23,6 +23,7 @@ const Shuffle = () => {
   const [trackPlayStorage, setTrackPlayStorage] = useState('')
   const [imageGradient, setImageGradient] = useState([])
   const [firstLoad, setFirstLoad] = useState(true)
+  const [currentGenre, setCurrentGenre] = useState<string | undefined>('')
   const [mode, setMode] = useState<'light' | 'dark' | undefined>(
     window.matchMedia &&
       window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -41,6 +42,7 @@ const Shuffle = () => {
         setImageAPILoading(false)
       }, 500)
       setFirstLoad(false)
+      setCurrentGenre(randomData.random_genre)
       ImageColorDetection(randomData.image)
     } catch (e) {
       console.log(e)
@@ -104,6 +106,7 @@ const Shuffle = () => {
   }, [])
 
   useEffect(() => {
+    console.log(randomData)
     if (window.location.hash) {
       const { access_token, expires_in, token_type } =
         GLOBAL_METHODS.getReturnedParamsFromSpotifyAuth(window.location.hash)
@@ -189,8 +192,9 @@ const Shuffle = () => {
                 color: mode === 'light' ? '#404047' : '#c7c7cc',
               }}
             >
-              {randomData.artists} — {randomData.random_genre} (
-              {randomData.year_track})
+              {randomData.artists} —{' '}
+              {randomData.random_genre || 'Radio: ' + currentGenre} (
+              {randomData.year})
             </h2>
           )}
 
