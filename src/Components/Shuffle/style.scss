@@ -30,7 +30,6 @@
     .music-info-container {
       overflow: hidden;
       opacity: 0.8;
-      background: #1c1c1e;
       width: 600px;
       height: 165px;
       margin: 50px 150px;
@@ -38,7 +37,6 @@
       box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
         rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
       .songName {
-        color: #fff;
         font-size: 95%;
         font-family: 'Inter', sans-serif;
         text-align: center;
@@ -53,7 +51,6 @@
         height: 18px;
       }
       .artistName {
-        color: #c7c7cc;
         font-size: 95%;
         font-family: 'Inter', sans-serif;
         text-align: center;
@@ -103,16 +100,12 @@
           position: relative;
           transform: translateX(-20%);
           border-radius: 8px;
-          background: #1c1c1e;
           opacity: 0.8;
           font-size: 2em;
           font-family: 'Montserrat', sans-serif;
-          color: #6c63ff;
           text-decoration: none;
           text-transform: uppercase;
           font-weight: bold;
-          box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
-            0 6px 20px 0 rgba(0, 0, 0, 0.19);
           animation: fadein 1s;
           animation-delay: 1.4s;
           animation-fill-mode: forwards;

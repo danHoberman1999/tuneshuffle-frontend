@@ -23,6 +23,12 @@ const Shuffle = () => {
   const [trackPlayStorage, setTrackPlayStorage] = useState('')
   const [imageGradient, setImageGradient] = useState([])
   const [firstLoad, setFirstLoad] = useState(true)
+  const [mode, setMode] = useState<'light' | 'dark' | undefined>(
+    window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light'
+  )
 
   const getRandomSong = async () => {
     setImageAPILoading(true)
@@ -64,6 +70,19 @@ const Shuffle = () => {
     display: 'block',
     margin: '0 auto',
   }
+
+  useEffect(() => {
+    const modeMe = (e: any) => {
+      setMode(e.matches ? 'dark' : 'light')
+      window.location.reload() // look for better solution to update musicPlayer colors
+    }
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', modeMe)
+    return window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .removeListener(modeMe)
+  }, [])
 
   useEffect(() => {
     if (window.location.hash) {
@@ -127,12 +146,30 @@ const Shuffle = () => {
             />
           </div>
         )}
-        <div className='music-info-container'>
-          <h1 className='songName'>{randomData.name}</h1>
+        <div
+          className='music-info-container'
+          style={{
+            background: mode === 'dark' ? '#1c1c1e' : '#d6d6c1',
+            opacity: '0.7',
+          }}
+        >
+          <h1
+            className='songName'
+            style={{
+              color: mode === 'light' ? '#000000' : '#fff',
+            }}
+          >
+            {randomData.name}
+          </h1>
           {firstLoad ? (
             <h2 className='artistName'></h2>
           ) : (
-            <h2 className='artistName'>
+            <h2
+              className='artistName'
+              style={{
+                color: mode === 'light' ? '#404047' : '#c7c7cc',
+              }}
+            >
               {randomData.artists} — {randomData.random_genre} (
               {randomData.year_track})
             </h2>
@@ -143,13 +180,13 @@ const Shuffle = () => {
               token={localStorage.accessToken}
               uris={[trackPlayStorage]}
               styles={{
-                activeColor: 'rgba(255, 0, 0, 0)',
+                sliderHandleColor: 'rgba(255, 0, 0, 0)',
                 bgColor: 'rgba(255, 0, 0, 0)',
-                color: '#fff',
-                loaderColor: '#fff',
-                sliderColor: '#fff',
-                trackArtistColor: '#ccc',
-                trackNameColor: '#fff',
+                color: mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
+                loaderColor:
+                  mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
+                sliderColor:
+                  mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
               }}
             />
           </div>
@@ -159,6 +196,10 @@ const Shuffle = () => {
                 getRandomSong()
               }}
               className='shuffleButton'
+              style={{
+                color: mode === 'light' ? '#007bff' : '#6c63ff',
+                background: mode === 'light' ? '#d6d6c1' : '#1c1c1e',
+              }}
             >
               Shuffle
             </button>
