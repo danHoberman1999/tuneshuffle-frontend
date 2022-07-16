@@ -47,6 +47,25 @@ const Shuffle = () => {
     }
   }
 
+  const getSimilarSong = async () => {
+    setImageAPILoading(true)
+    try {
+      const response = await axios.get(
+        CONSTANTS.FETCH_RECOMMENDATION_API_URL + 'id=' + randomData.id
+      )
+      setRandomData(response.data['recommendation info'])
+      setTrackPlayStorage(
+        'spotify:track:' + response.data['recommendation info'].id
+      )
+      const imageLoaded = setTimeout(() => {
+        setImageAPILoading(false)
+      }, 500)
+      ImageColorDetection(randomData.image)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   const ImageColorDetection = async (imageUrl: any) => {
     try {
       const response = await axios.get(CONSTANTS.SIGHT_ENGINE_URL, {
@@ -187,6 +206,7 @@ const Shuffle = () => {
                   mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
                 sliderColor:
                   mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
+                sliderTrackColor: mode === 'light' ? '#888894' : '#dca8b2',
               }}
             />
           </div>
@@ -195,13 +215,25 @@ const Shuffle = () => {
               onClick={() => {
                 getRandomSong()
               }}
-              className='shuffleButton'
+              className='buttonDecoration'
               style={{
                 color: mode === 'light' ? '#007bff' : '#6c63ff',
                 background: mode === 'light' ? '#d6d6c1' : '#1c1c1e',
               }}
             >
-              Shuffle
+              Random
+            </button>
+            <button
+              onClick={() => {
+                getSimilarSong()
+              }}
+              className='buttonDecoration similarButton '
+              style={{
+                color: mode === 'light' ? '#007bff' : '#6c63ff',
+                background: mode === 'light' ? '#d6d6c1' : '#1c1c1e',
+              }}
+            >
+              Similar
             </button>
           </div>
         </div>

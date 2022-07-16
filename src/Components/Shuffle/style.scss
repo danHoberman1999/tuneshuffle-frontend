@@ -91,17 +91,17 @@
       }
       .buttonContainer {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-around;
         flex-direction: row;
         position: relative;
-        transform: translateY(-110%);
-        .shuffleButton {
+        transform: translateY(-128%);
+        .buttonDecoration {
           z-index: 500;
           position: relative;
           transform: translateX(-20%);
           border-radius: 8px;
           opacity: 0.8;
-          font-size: 2em;
+          font-size: 1.5em;
           font-family: 'Montserrat', sans-serif;
           text-decoration: none;
           text-transform: uppercase;
@@ -114,6 +114,9 @@
             cursor: pointer;
             text-shadow: 0.03em 0 #6c63ff, 0 0.03em #6c63ff;
           }
+        }
+        .similarButton {
+          margin-right: -50px;
         }
       }
     }
@@ -171,8 +174,11 @@
         }
         .buttonContainer {
           transform: translateY(-125%);
-          .shuffleButton {
-            font-size: 1.3em;
+          .buttonDecoration {
+            font-size: 1.2em;
+          }
+          .similarButton {
+            margin-right: -41px;
           }
         }
       }
