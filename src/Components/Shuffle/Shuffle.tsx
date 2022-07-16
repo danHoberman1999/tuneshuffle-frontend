@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, CSSProperties } from 'react'
 import { GLOBAL_METHODS } from '../../Lib/Methods'
-import MusicPlayer from './SubComponents/MusicPlayer'
 import Playlist from './SubComponents/Playlist'
 import { CONSTANTS } from '../../Lib/Constants'
 import axios from 'axios'
+import ScaleLoader from 'react-spinners/ScaleLoader'
+import SpotifyPlayer from 'react-spotify-web-playback'
 import './style.scss'
 
 interface RandomDataProps {
@@ -15,34 +16,23 @@ interface RandomDataProps {
 
 const Shuffle = () => {
   const [randomData, setRandomData] = useState<RandomDataProps>({})
-  const [loading, setLoading] = useState(true)
+  const [imageScanLoading, setImageScanLoading] = useState(true)
+  const [imageAPILoading, setImageAPILoading] = useState(true)
+  let [loaderColor, setLoaderColor] = useState('#ffffff')
   const [playlist, setPlaylist] = useState([])
   const [trackPlayStorage, setTrackPlayStorage] = useState('')
   const [likedSongs, setLikedSongs] = useState('')
   const [imageGradient, setImageGradient] = useState([])
 
   const getRandomSong = async () => {
+    setImageAPILoading(true)
     try {
       const response = await axios.get(CONSTANTS.FETCH_RANDOM_API_URL)
       setRandomData(response.data['random info'])
       setTrackPlayStorage('spotify:track:' + response.data['random info'].id)
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  const getSimilarSong = async () => {
-    setLoading(false)
-    try {
-      const response = await axios.get(
-        CONSTANTS.FETCH_RECOMMENDATION_API_URL + 'id=' + randomData.id
-      )
-      setRandomData(response.data['recommendation info'])
-
-      setTrackPlayStorage(
-        'spotify:track:' + response.data['recommendation info'].id
-      )
-      setLoading(true)
+      const imageLoaded = setTimeout(() => {
+        setImageAPILoading(false)
+      }, 1000)
     } catch (e) {
       console.log(e)
     }
@@ -75,10 +65,15 @@ const Shuffle = () => {
         },
       })
       setImageGradient(response['data']['colors']['other'])
-      setLoading(false)
+      setImageScanLoading(false)
     } catch (e) {
       console.log(e)
     }
+  }
+
+  const override: CSSProperties = {
+    display: 'block',
+    margin: '0 auto',
   }
 
   useEffect(() => {
@@ -114,7 +109,7 @@ const Shuffle = () => {
     <div
       className='container'
       style={{
-        background: loading
+        background: imageScanLoading
           ? 'linear-gradient(#ec008c, #fc6767)'
           : 'linear-gradient(' +
             `${imageGradient[0]['hex']}` +
@@ -124,17 +119,41 @@ const Shuffle = () => {
       }}
     >
       <div className='shuffleContainer'>
-        <div className='albumContainer'>
-          <img
-            className='albumImage'
-            src={randomData.image}
-            alt='random album from spotify'
-          />
-        </div>
+        {imageAPILoading ? (
+          <div className='loaderContainer'>
+            <ScaleLoader
+              color={loaderColor}
+              loading={imageAPILoading}
+              cssOverride={override}
+            />
+          </div>
+        ) : (
+          <div className='albumContainer'>
+            <img
+              className='albumImage'
+              src={randomData.image}
+              alt='random album from spotify'
+            />
+          </div>
+        )}
         <div className='music-info-container'>
           <h1 className='songName'>{randomData.name}</h1>
           <h2 className='artistName'>{randomData.artists}</h2>
-          <MusicPlayer trackPlay={trackPlayStorage} />
+          <div className='sdkContainer'>
+            <SpotifyPlayer
+              token={localStorage.accessToken}
+              uris={[trackPlayStorage]}
+              styles={{
+                activeColor: 'rgba(255, 0, 0, 0)',
+                bgColor: 'rgba(255, 0, 0, 0)',
+                color: '#fff',
+                loaderColor: '#fff',
+                sliderColor: '#fff',
+                trackArtistColor: '#ccc',
+                trackNameColor: '#fff',
+              }}
+            />
+          </div>
           <div className='buttonContainer'>
             <button
               onClick={() => {
@@ -153,7 +172,6 @@ const Shuffle = () => {
             </button>
           </div>
         </div>
-        <Playlist />
       </div>
     </div>
   )

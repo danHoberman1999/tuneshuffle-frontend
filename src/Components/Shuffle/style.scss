@@ -1,17 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&family=Montserrat:ital,wght@1,900&display=swap');
 
 .container {
-  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
   .shuffleContainer {
     display: flex;
     align-items: center;
     flex-direction: column;
-    position: relative;
-    top: 100%;
-    -webkit-transform: translateY(-100%);
-    -ms-transform: translateY(-100%);
-    transform: translateY(-100%);
+    .loaderContainer {
+      height: 300px;
+      width: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .albumContainer {
+      height: 300px;
+      width: 300px;
       .albumImage {
         border-radius: 8%;
         box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
@@ -19,9 +26,11 @@
       }
     }
     .music-info-container {
+      overflow: hidden;
       opacity: 0.8;
       background: #1c1c1e;
       width: 600px;
+      height: 149px;
       margin: 50px 150px;
       border-radius: 30px;
       box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
@@ -33,6 +42,7 @@
         text-align: center;
         padding: 0;
         margin-top: 1rem;
+        height: 15.5px;
       }
       .artistName {
         color: #c7c7cc;
@@ -41,6 +51,7 @@
         text-align: center;
         padding: 0;
         margin-top: 0.2rem;
+        height: 15.5px;
       }
 
       .sdkContainer {
@@ -49,6 +60,9 @@
         margin: auto;
         overflow: hidden;
         .PlayerRSWP {
+          ._ContentRSWP {
+            height: 48px;
+          }
           ._SliderRSWP > div {
             color: red;
           }
@@ -64,9 +78,6 @@
         justify-content: space-around;
         flex-direction: row;
         position: relative;
-        top: 70%;
-        -webkit-transform: translateY(-70%);
-        -ms-transform: translateY(-70%);
         transform: translateY(-70%);
         .shuffleButton {
           border-radius: 8px;
