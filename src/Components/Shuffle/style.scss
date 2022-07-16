@@ -43,7 +43,9 @@
         font-family: 'Inter', sans-serif;
         text-align: center;
         padding: 0 10px;
-        margin-top: 1rem;
+        margin: 1rem auto 0 auto;
+        margin-bottom: 0.6rem;
+        max-width: 300px;
         text-overflow: ellipsis;
         overflow: hidden;
         display: block;
@@ -56,7 +58,9 @@
         font-family: 'Inter', sans-serif;
         text-align: center;
         padding: 0;
-        margin-top: 0.2rem;
+        margin: 0.2rem auto 0 auto;
+        margin-bottom: 0.8rem;
+        max-width: 300px;
         overflow: hidden;
         display: block;
         text-overflow: ellipsis;
@@ -147,6 +151,16 @@
         .artistName {
           font-size: 75%;
           height: 15px;
+        }
+        .songName {
+          margin: 0.8rem auto 0 auto;
+          margin-bottom: 0.4rem;
+          max-width: 275px;
+        }
+        .artistName {
+          margin: 0.2rem auto 0 auto;
+          margin-bottom: 0.5rem;
+          max-width: 275px;
         }
 
         .sdkContainer {
