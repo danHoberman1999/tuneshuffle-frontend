@@ -2,11 +2,11 @@ import axios from 'axios'
 import { confirmAlert } from 'react-confirm-alert'
 import { CONSTANTS } from './Constants'
 
-const getReturnedParamsFromSpotifyAuth = (hash: any) => {
+const getReturnedParamsFromSpotifyAuth = (hash: string) => {
   const stringAfterHashtag = hash.substring(1)
   const paramsInUrl = stringAfterHashtag.split('&')
   const paramsSplitUp = paramsInUrl.reduce(
-    (accumulater: any, currentValue: any) => {
+    (accumulater: any, currentValue: string) => {
       const [key, value] = currentValue.split('=')
       accumulater[key] = value
       return accumulater
@@ -48,24 +48,8 @@ const alertExpiring = () => {
   })
 }
 
-const playlistCreated = () => {
-  confirmAlert({
-    title: 'Playlist Created',
-    message: 'Make playlist has been successfully added to spotify',
-  })
-}
-
-const playlistCreationFailed = () => {
-  confirmAlert({
-    title: 'Playlist failed to create',
-    message: 'playlist was not added to spotify',
-  })
-}
-
 export const GLOBAL_METHODS = {
   getReturnedParamsFromSpotifyAuth,
   alertExpiring,
   isSessionExpired,
-  playlistCreated,
-  playlistCreationFailed,
 }

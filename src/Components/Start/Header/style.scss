@@ -6,12 +6,6 @@
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
-  .menu-icon {
-    display: none;
-    .fa-bars {
-      color: #fff;
-    }
-  }
   .navbar-logo {
     color: #fff;
     justify-self: start;
@@ -54,19 +48,6 @@
       top: 0;
       left: 0;
       transform: translate(25%, 0%);
-    }
-    .menu-icon {
-      display: block;
-      position: absolute;
-      top: 0;
-      right: 0;
-      transform: translate(-100%, 80%);
-      font-size: 1.8rem;
-      cursor: pointer;
-      .fa-times {
-        color: #fff;
-        font-size: 2rem;
-      }
     }
     .nav-menu {
       display: none;

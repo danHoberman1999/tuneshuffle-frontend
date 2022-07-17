@@ -6,13 +6,8 @@ interface HeaderItemsProps {
 
 export const HeaderItems: HeaderItemsProps[] = [
   {
-    title: 'Statistics',
-    url: '#',
-    name: 'nav-links',
-  },
-  {
     title: 'Github',
-    url: 'https://github.com/danHoberman1999/randify-frontend',
+    url: 'https://github.com/danHoberman1999/tuneshuffle-frontend',
     name: 'nav-links',
   },
 ]
