@@ -78,9 +78,11 @@ const Shuffle = () => {
           api_secret: CONSTANTS.SIGHT_ENGINE_SECRET,
         },
       })
-      console.log(response['data']['colors']['other'])
       setImageGradient(response['data']['colors']['other'])
       setImageScanLoading(false)
+      if (response['data']['colors']['other'].length < 2) {
+        setImageScanLoading(true)
+      }
     } catch (e) {
       setImageScanLoading(true)
       console.log(e)
@@ -144,7 +146,7 @@ const Shuffle = () => {
           : 'linear-gradient(' +
             `${imageGradient[0]['hex']}` +
             ',' +
-            `${imageGradient[2]['hex']}` +
+            `${imageGradient[1]['hex']}` +
             ')',
         animation: 'fadein 1s',
         animationDelay: '2.5s',
