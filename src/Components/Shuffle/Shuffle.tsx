@@ -11,7 +11,7 @@ interface RandomDataProps {
   image?: string
   artists?: string
   id?: string
-  random_genre?: string
+  genre?: string
   year?: string
 }
 
@@ -106,6 +106,7 @@ const Shuffle = () => {
   }, [])
 
   useEffect(() => {
+    console.log(randomData)
     if (window.location.hash) {
       const { access_token, expires_in, token_type } =
         GLOBAL_METHODS.getReturnedParamsFromSpotifyAuth(window.location.hash)
@@ -191,8 +192,7 @@ const Shuffle = () => {
                 color: mode === 'light' ? '#404047' : '#c7c7cc',
               }}
             >
-              {randomData.artists} — {currentGenre || randomData.random_genre} (
-              {randomData.year})
+              {randomData.artists} — {randomData.genre} ({randomData.year})
             </h2>
           )}
 
