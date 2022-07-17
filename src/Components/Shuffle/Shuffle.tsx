@@ -42,7 +42,7 @@ const Shuffle = () => {
         setImageAPILoading(false)
       }, 500)
       setFirstLoad(false)
-      setCurrentGenre(randomData.random_genre)
+      setCurrentGenre(response.data['random info']['random_genre'])
       ImageColorDetection(randomData.image)
     } catch (e) {
       console.log(e)
@@ -106,7 +106,6 @@ const Shuffle = () => {
   }, [])
 
   useEffect(() => {
-    console.log(randomData)
     if (window.location.hash) {
       const { access_token, expires_in, token_type } =
         GLOBAL_METHODS.getReturnedParamsFromSpotifyAuth(window.location.hash)
@@ -192,8 +191,7 @@ const Shuffle = () => {
                 color: mode === 'light' ? '#404047' : '#c7c7cc',
               }}
             >
-              {randomData.artists} —{' '}
-              {randomData.random_genre || 'Radio: ' + currentGenre} (
+              {randomData.artists} — {currentGenre || randomData.random_genre} (
               {randomData.year})
             </h2>
           )}
@@ -221,7 +219,7 @@ const Shuffle = () => {
               }}
               className='buttonDecoration'
               style={{
-                color: mode === 'light' ? '#007bff' : '#6c63ff',
+                color: mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
                 background: mode === 'light' ? '#d6d6c1' : '#1c1c1e',
               }}
             >
@@ -233,7 +231,7 @@ const Shuffle = () => {
               }}
               className='buttonDecoration similarButton '
               style={{
-                color: mode === 'light' ? '#007bff' : '#6c63ff',
+                color: mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
                 background: mode === 'light' ? '#d6d6c1' : '#1c1c1e',
               }}
             >

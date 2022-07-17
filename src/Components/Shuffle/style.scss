@@ -100,7 +100,6 @@
           position: relative;
           transform: translateX(-20%);
           border-radius: 8px;
-          opacity: 0.8;
           font-size: 1.5em;
           font-family: 'Montserrat', sans-serif;
           text-decoration: none;
@@ -112,7 +111,6 @@
           border: none;
           &:hover {
             cursor: pointer;
-            text-shadow: 0.03em 0 #6c63ff, 0 0.03em #6c63ff;
           }
         }
         .similarButton {
