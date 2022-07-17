@@ -46,6 +46,7 @@ const Shuffle = () => {
       ImageColorDetection(randomData.image)
     } catch (e) {
       console.log(e)
+      getRandomSong()
     }
   }
 
@@ -65,6 +66,7 @@ const Shuffle = () => {
       ImageColorDetection(randomData.image)
     } catch (e) {
       console.log(e)
+      getRandomSong()
     }
   }
 
