@@ -32,6 +32,7 @@ const Shuffle = () => {
   const [imageGradientOther, setImageGradientOther] = useState([])
   const [imageGradientDominant, setImageGradientDominant] =
     useState<ImageDataProps>({})
+  const [loadFailure, setLoadFailure] = useState(false)
   const [firstLoad, setFirstLoad] = useState(true)
   const [currentGenre, setCurrentGenre] = useState<string | undefined>('')
   const [mode, setMode] = useState<'light' | 'dark' | undefined>(
@@ -46,6 +47,10 @@ const Shuffle = () => {
 
     try {
       const response = await axios.get(CONSTANTS.FETCH_RANDOM_API_URL)
+      console.log(response.data['random info'])
+      if (response.data['random info'].hasOwnProperty('error')) {
+        setLoadFailure(true)
+      }
       setRandomData(response.data['random info'])
       setTrackPlayStorage('spotify:track:' + response.data['random info'].id)
       const imageLoaded = setTimeout(() => {
@@ -122,6 +127,7 @@ const Shuffle = () => {
   }, [])
 
   useEffect(() => {
+    console.log(loadFailure)
     if (window.location.hash) {
       const { access_token, expires_in, token_type } =
         GLOBAL_METHODS.getReturnedParamsFromSpotifyAuth(window.location.hash)
@@ -151,109 +157,120 @@ const Shuffle = () => {
   }, [])
 
   return (
-    <div
-      className='container'
-      style={{
-        background: imageScanLoading
-          ? 'linear-gradient(to top left, #4ca1af, transparent),linear-gradient(to top right, #2c3e50, transparent)'
-          : 'linear-gradient(to top left, ' +
-            `${imageGradientDominant['hex']}` +
-            ', transparent),linear-gradient(to top right, ' +
-            `${imageGradientOther[0]['hex']}` +
-            ', transparent)',
-        backgroundBlendMode: 'screen',
-      }}
-    >
-      <div className='shuffleContainer'>
-        {imageAPILoading ? (
-          <div className='loaderContainer'>
-            <ScaleLoader
-              color={loaderColor}
-              loading={imageAPILoading}
-              cssOverride={override}
-            />
-          </div>
-        ) : (
-          <div className='albumContainer'>
-            <img
-              className='albumImage'
-              src={randomData.image}
-              alt='random album from spotify'
-            />
-          </div>
-        )}
+    <>
+      {loadFailure ? (
+        <div className='failureContainer'>
+          <h1 className='failure'>Error: Too many requests</h1>
+        </div>
+      ) : (
         <div
-          className='music-info-container'
+          className='container'
           style={{
-            background: mode === 'dark' ? '#1c1c1e' : '#d6d6c1',
+            background: imageScanLoading
+              ? 'linear-gradient(to top left, #4ca1af, transparent),linear-gradient(to top right, #2c3e50, transparent)'
+              : 'linear-gradient(to top left, ' +
+                `${imageGradientDominant['hex']}` +
+                ', transparent),linear-gradient(to top right, ' +
+                `${imageGradientOther[0]['hex']}` +
+                ', transparent)',
+            backgroundBlendMode: 'screen',
           }}
         >
-          <h1
-            className='songName'
-            style={{
-              color: mode === 'light' ? '#000000' : '#fff',
-            }}
-          >
-            {randomData.name}
-          </h1>
-          {firstLoad ? (
-            <h2 className='artistName'></h2>
-          ) : (
-            <h2
-              className='artistName'
+          <div className='shuffleContainer'>
+            {imageAPILoading ? (
+              <div className='loaderContainer'>
+                <ScaleLoader
+                  color={loaderColor}
+                  loading={imageAPILoading}
+                  cssOverride={override}
+                />
+              </div>
+            ) : (
+              <div className='albumContainer'>
+                <img
+                  className='albumImage'
+                  src={randomData.image}
+                  alt='random album from spotify'
+                />
+              </div>
+            )}
+            <div
+              className='music-info-container'
               style={{
-                color: mode === 'light' ? '#404047' : '#c7c7cc',
+                background: mode === 'dark' ? '#1c1c1e' : '#d6d6c1',
               }}
             >
-              {randomData.artists} — {randomData.genre} ({randomData.year})
-            </h2>
-          )}
+              <h1
+                className='songName'
+                style={{
+                  color: mode === 'light' ? '#000000' : '#fff',
+                }}
+              >
+                {randomData.name}
+              </h1>
+              {firstLoad ? (
+                <h2 className='artistName'></h2>
+              ) : (
+                <h2
+                  className='artistName'
+                  style={{
+                    color: mode === 'light' ? '#404047' : '#c7c7cc',
+                  }}
+                >
+                  {randomData.artists} — {randomData.genre} ({randomData.year})
+                </h2>
+              )}
 
-          <div className='sdkContainer'>
-            <SpotifyPlayer
-              token={localStorage.accessToken}
-              uris={[trackPlayStorage]}
-              styles={{
-                sliderHandleColor: 'rgba(255, 0, 0, 0)',
-                bgColor: 'rgba(255, 0, 0, 0)',
-                color: mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
-                loaderColor:
-                  mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
-                sliderColor:
-                  mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
-                sliderTrackColor: mode === 'light' ? '#888894' : '#dca8b2',
-              }}
-            />
-          </div>
-          <div className='buttonContainer'>
-            <button
-              onClick={() => {
-                getRandomSong()
-              }}
-              className='buttonDecoration'
-              style={{
-                color: mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
-                background: mode === 'light' ? '#d6d6c1' : '#1c1c1e',
-              }}
-            >
-              Random
-            </button>
-            <button
-              onClick={() => {
-                getSimilarSong()
-              }}
-              className='buttonDecoration similarButton '
-              style={{
-                color: mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
-                background: mode === 'light' ? '#d6d6c1' : '#1c1c1e',
-              }}
-            >
-              Similar
-            </button>
+              <div className='sdkContainer'>
+                <SpotifyPlayer
+                  token={localStorage.accessToken}
+                  uris={[trackPlayStorage]}
+                  styles={{
+                    sliderHandleColor: 'rgba(255, 0, 0, 0)',
+                    bgColor: 'rgba(255, 0, 0, 0)',
+                    color:
+                      mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
+                    loaderColor:
+                      mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
+                    sliderColor:
+                      mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
+                    sliderTrackColor: mode === 'light' ? '#888894' : '#dca8b2',
+                  }}
+                />
+              </div>
+              <div className='buttonContainer'>
+                <button
+                  onClick={() => {
+                    getRandomSong()
+                  }}
+                  className='buttonDecoration'
+                  style={{
+                    color:
+                      mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
+                    background: mode === 'light' ? '#d6d6c1' : '#1c1c1e',
+                  }}
+                >
+                  Random
+                </button>
+                <button
+                  onClick={() => {
+                    getSimilarSong()
+                  }}
+                  className='buttonDecoration similarButton '
+                  style={{
+                    color:
+                      mode === 'light' ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)',
+                    background: mode === 'light' ? '#d6d6c1' : '#1c1c1e',
+                  }}
+                >
+                  Similar
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   )
 }
 

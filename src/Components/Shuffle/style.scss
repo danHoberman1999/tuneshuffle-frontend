@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&family=Montserrat:ital,wght@1,900&display=swap');
 
+.failureContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  .failure {
+    font-family: 'Inter', sans-serif;
+    font-size: 200%;
+  }
+}
+
 .container {
   display: flex;
   align-items: center;
