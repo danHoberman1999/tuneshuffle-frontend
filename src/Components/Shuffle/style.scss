@@ -5,9 +5,13 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+  .error {
+    color: red;
+  }
   .failure {
     font-family: 'Inter', sans-serif;
     font-size: 200%;
+    text-align: center;
   }
 }
 
@@ -133,6 +137,11 @@
 }
 
 @media screen and (max-width: 960px) {
+  .failureContainer {
+    .failure {
+      font-size: 150%;
+    }
+  }
   .container {
     .shuffleContainer {
       .loaderContainer {

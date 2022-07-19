@@ -160,7 +160,10 @@ const Shuffle = () => {
     <>
       {loadFailure ? (
         <div className='failureContainer'>
-          <h1 className='failure'>Error: Too many requests</h1>
+          <h1 className='failure'>
+            <span className='error'>Error:</span> This page is down at the
+            moment. Please try again later.
+          </h1>
         </div>
       ) : (
         <div
