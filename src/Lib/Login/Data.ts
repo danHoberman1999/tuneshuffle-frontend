@@ -11,8 +11,6 @@ const SCOPES: string[] = [
   'user-read-email',
   'user-read-private',
   'user-modify-playback-state',
-  'playlist-modify-public',
-  'playlist-modify-private',
 ]
 const SCOPES_URL_PARAM: string = SCOPES.join(SPACE_DELIMITER)
 
