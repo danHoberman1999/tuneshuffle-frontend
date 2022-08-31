@@ -47,7 +47,6 @@ const Shuffle = () => {
 
     try {
       const response = await axios.get(CONSTANTS.FETCH_RANDOM_API_URL)
-      console.log(response.data['random info'])
       if (response.data['random info'].hasOwnProperty('error')) {
         setLoadFailure(true)
       }
