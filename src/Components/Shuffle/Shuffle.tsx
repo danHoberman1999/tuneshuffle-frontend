@@ -91,7 +91,6 @@ const Shuffle = () => {
       })
       setImageGradientOther(response['data']['colors']['other'])
       setImageGradientDominant(response['data']['colors']['dominant'])
-      console.log(response['data']['colors']['accent'])
       setImageScanLoading(false)
       if (response['data']['colors']['other'].length < 2) {
         setImageScanLoading(true)
