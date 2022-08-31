@@ -53,12 +53,12 @@ const Shuffle = () => {
       }
       setRandomData(response.data['random info'])
       setTrackPlayStorage('spotify:track:' + response.data['random info'].id)
-      const imageLoaded = setTimeout(() => {
-        setImageAPILoading(false)
-      }, 500)
+      // const imageLoaded = setTimeout(() => {
+      //   setImageAPILoading(false)
+      // }, 500)
       setFirstLoad(false)
       setCurrentGenre(response.data['random info']['random_genre'])
-      ImageColorDetection(randomData.image)
+      ImageColorDetection(response.data['random info'].image)
     } catch (e) {
       console.log(e)
       getRandomSong()
@@ -75,10 +75,10 @@ const Shuffle = () => {
       setTrackPlayStorage(
         'spotify:track:' + response.data['recommendation info'].id
       )
-      const imageLoaded = setTimeout(() => {
-        setImageAPILoading(false)
-      }, 500)
-      ImageColorDetection(randomData.image)
+      // const imageLoaded = setTimeout(() => {
+      //   setImageAPILoading(false)
+      // }, 500)
+      ImageColorDetection(response.data['recommendation info'].image)
     } catch (e) {
       console.log(e)
       getRandomSong()
@@ -102,6 +102,8 @@ const Shuffle = () => {
       if (response['data']['colors']['other'].length < 2) {
         setImageScanLoading(true)
       }
+
+      setImageAPILoading(false)
     } catch (e) {
       setImageScanLoading(true)
       console.log(e)
@@ -121,13 +123,13 @@ const Shuffle = () => {
     window
       .matchMedia('(prefers-color-scheme: dark)')
       .addEventListener('change', modeMe)
-    return window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .removeListener(modeMe)
+
+    // dismounting functions should be done in a function
+    return () =>
+      window.matchMedia('(prefers-color-scheme: dark)').removeListener(modeMe)
   }, [])
 
   useEffect(() => {
-    console.log(loadFailure)
     if (window.location.hash) {
       const { access_token, expires_in, token_type } =
         GLOBAL_METHODS.getReturnedParamsFromSpotifyAuth(window.location.hash)
@@ -135,21 +137,8 @@ const Shuffle = () => {
       localStorage.setItem('accessToken', access_token)
       localStorage.setItem('tokenType', token_type)
       localStorage.setItem('expiresIn', expires_in)
-
-      const alertTimer = setTimeout(() => {
-        GLOBAL_METHODS.alertExpiring()
-      }, (localStorage.expires_in - 200) * 1000)
-
-      const windowTimer = setTimeout(() => {
-        localStorage.clear()
-        window.location.href = CONSTANTS.TUNESHUFFLE_URL
-      }, localStorage.expires_in * 1000)
-
-      clearTimeout(alertTimer)
-      clearTimeout(windowTimer)
-      return
     }
-  })
+  }, [])
 
   useEffect(() => {
     GLOBAL_METHODS.isSessionExpired()
