@@ -50,7 +50,9 @@ const Shuffle = () => {
       if (response.data['random info'].hasOwnProperty('error')) {
         setLoadFailure(true)
       }
-      setRandomData(response.data['random info'])
+      if (!imageAPILoading || firstLoad) {
+        setRandomData(response.data['random info'])
+      }
       setTrackPlayStorage('spotify:track:' + response.data['random info'].id)
       setFirstLoad(false)
       setCurrentGenre(response.data['random info']['random_genre'])
@@ -67,7 +69,9 @@ const Shuffle = () => {
       const response = await axios.get(
         CONSTANTS.FETCH_RECOMMENDATION_API_URL + 'id=' + randomData.id
       )
-      setRandomData(response.data['recommendation info'])
+      if (!imageAPILoading || firstLoad) {
+        setRandomData(response.data['recommendation info'])
+      }
       setTrackPlayStorage(
         'spotify:track:' + response.data['recommendation info'].id
       )
