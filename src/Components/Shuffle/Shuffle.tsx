@@ -53,9 +53,6 @@ const Shuffle = () => {
       }
       setRandomData(response.data['random info'])
       setTrackPlayStorage('spotify:track:' + response.data['random info'].id)
-      // const imageLoaded = setTimeout(() => {
-      //   setImageAPILoading(false)
-      // }, 500)
       setFirstLoad(false)
       setCurrentGenre(response.data['random info']['random_genre'])
       ImageColorDetection(response.data['random info'].image)
@@ -75,9 +72,6 @@ const Shuffle = () => {
       setTrackPlayStorage(
         'spotify:track:' + response.data['recommendation info'].id
       )
-      // const imageLoaded = setTimeout(() => {
-      //   setImageAPILoading(false)
-      // }, 500)
       ImageColorDetection(response.data['recommendation info'].image)
     } catch (e) {
       console.log(e)
