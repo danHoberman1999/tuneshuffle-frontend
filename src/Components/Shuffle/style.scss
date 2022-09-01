@@ -25,19 +25,21 @@
     align-items: center;
     flex-direction: column;
     .loaderContainer {
-      height: 300px;
-      width: 300px;
+      height: 350px;
+      width: 350px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .albumContainer {
-      height: 300px;
-      width: 300px;
+      height: 350px;
+      width: 350px;
       .albumImage {
+        height: 350px;
+        width: 350px;
         animation: fadein 1s;
         animation-delay: 1.4s;
-        border-radius: 8%;
+        border-radius: 3%;
         box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
           rgba(0, 0, 0, 0.23) 0px 3px 6px;
       }
@@ -52,7 +54,7 @@
         rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
       opacity: 0.7;
       .songName {
-        font-size: 95%;
+        font-size: 115%;
         font-family: 'Inter', sans-serif;
         text-align: center;
         padding: 0 10px;
@@ -63,7 +65,7 @@
         overflow: hidden;
         display: block;
         text-overflow: ellipsis;
-        height: 18px;
+        height: 22px;
       }
       .artistName {
         font-size: 95%;
@@ -86,11 +88,15 @@
         overflow: hidden;
         z-index: 100;
         .PlayerRSWP {
+          .__181lube * {
+            border-radius: 12px !important;
+            height: 7px !important;
+          }
           ._ContentRSWP {
             height: 73px;
           }
           ._ControlsRSWP {
-            margin-top: 25px;
+            margin-top: 15px;
             .rswp__toggle {
               position: relative;
               z-index: 500;
@@ -109,7 +115,7 @@
         justify-content: space-around;
         flex-direction: row;
         position: relative;
-        transform: translateY(-128%);
+        transform: translateY(-138%);
         .buttonDecoration {
           z-index: 500;
           position: relative;
@@ -159,26 +165,28 @@
       .music-info-container {
         width: 350px;
         height: 120px;
-        margin: 50px 150px;
+        margin: 25px;
         border-radius: 30px;
-        .songName,
-        .artistName {
-          font-size: 75%;
-          height: 15px;
-        }
         .songName {
+          font-size: 85%;
           margin: 0.8rem auto 0 auto;
           margin-bottom: 0.4rem;
           max-width: 275px;
+          height: 16px;
         }
         .artistName {
+          font-size: 75%;
           margin: 0.2rem auto 0 auto;
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.7rem;
           max-width: 275px;
+          height: 14px;
         }
 
         .sdkContainer {
           .PlayerRSWP {
+            .__181lube * {
+              height: 5.5px !important;
+            }
             ._ContentRSWP {
               height: 50px;
             }
