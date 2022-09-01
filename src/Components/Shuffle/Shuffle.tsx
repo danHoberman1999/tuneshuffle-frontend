@@ -50,13 +50,16 @@ const Shuffle = () => {
       if (response.data['random info'].hasOwnProperty('error')) {
         setLoadFailure(true)
       }
-      if (!imageAPILoading || firstLoad) {
+      if (firstLoad) {
         setRandomData(response.data['random info'])
       }
       setTrackPlayStorage('spotify:track:' + response.data['random info'].id)
       setFirstLoad(false)
       setCurrentGenre(response.data['random info']['random_genre'])
-      ImageColorDetection(response.data['random info'].image)
+      await ImageColorDetection(response.data['random info'].image)
+      if (!firstLoad) {
+        setRandomData(response.data['random info'])
+      }
     } catch (e) {
       console.log(e)
       getRandomSong()
@@ -69,13 +72,11 @@ const Shuffle = () => {
       const response = await axios.get(
         CONSTANTS.FETCH_RECOMMENDATION_API_URL + 'id=' + randomData.id
       )
-      if (!imageAPILoading || firstLoad) {
-        setRandomData(response.data['recommendation info'])
-      }
       setTrackPlayStorage(
         'spotify:track:' + response.data['recommendation info'].id
       )
-      ImageColorDetection(response.data['recommendation info'].image)
+      await ImageColorDetection(response.data['recommendation info'].image)
+      setRandomData(response.data['recommendation info'])
     } catch (e) {
       console.log(e)
       getRandomSong()
